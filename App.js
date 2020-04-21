@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground ,Dimensions, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground ,Dimensions, Alert } from 'react-native';
 import {Directions, FlingGestureHandler, State} from 'react-native-gesture-handler';
 import sky from './assets/sky.jpg'
+import { reset } from 'expo/build/AR';
 
 export default function App() {
-  const [board, setBoard] = useState([[1,2, 3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]])
+  const startingBoard = [[1,2, 3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
+  const [board, setBoard] = useState(startingBoard)
 
   const addNumbers = () => {
     let newBoard = board.map(el => {
@@ -38,7 +40,7 @@ export default function App() {
     })
     setBoard([...board, newBoard])
   }
-
+  const resetBoard = () => setBoard(startingBoard)
 
   return (
     <ImageBackground source={sky} style={styles.bg}>
@@ -71,7 +73,7 @@ export default function App() {
         }
       }}>
         <View style={styles.screen}>
-          <View style={styles.header}><Text>Here goes some stuff</Text></View>
+          <View style={styles.header}><TouchableOpacity onPress={resetBoard}><Text>RESET!</Text></TouchableOpacity></View>
           <View style={styles.gridContainer}>
             <View>      
               <View style={styles.cell}><Text>{board[0][0]}</Text></View>
@@ -116,10 +118,11 @@ const styles = StyleSheet.create({
   screen: {
     flex:1,
     flexDirection: 'column',
-    justifyContent: 'space-between'
   },
   header:{
-    flex: 1
+    flex: 1,
+    alignSelf: 'center',
+    top : 100
   },
   gridContainer: {
     flex:1,
