@@ -5,8 +5,22 @@ import sky from './assets/sky.jpg'
 import { reset } from 'expo/build/AR';
 
 export default function App() {
-  const startingBoard = [[1,2, 3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
+  const startingBoard = [['','', '',''],['','',2,''],['','','',''],['','','','']]
   const [board, setBoard] = useState(startingBoard)
+
+  const playTurn = () => {
+    let column =  Math.floor(Math.random()*4)
+    let row =  Math.floor(Math.random()*4)
+    if(board[row][column] == ''){
+      board[row][column] = 2
+      setBoard([...board, board])
+    }
+    else{
+      board[row][column] = board[row][column] * 2
+      setBoard([...board, board])
+    }
+  }
+
 
   const addNumbers = () => {
     let newBoard = board.map(el => {
@@ -48,7 +62,7 @@ export default function App() {
         direction={Directions.RIGHT}
         onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.ACTIVE) {
-          addNumbers(board)
+          playTurn()
         }
       }}>
       <FlingGestureHandler       
@@ -76,28 +90,28 @@ export default function App() {
           <View style={styles.header}><TouchableOpacity onPress={resetBoard}><Text>RESET!</Text></TouchableOpacity></View>
           <View style={styles.gridContainer}>
             <View>      
-              <View style={styles.cell}><Text>{board[0][0]}</Text></View>
-              <View style={styles.cell}><Text>{board[0][1]}</Text></View>
-              <View style={styles.cell}><Text>{board[0][2]}</Text></View>
-              <View style={styles.cell}><Text>{board[0][3]}</Text></View>
+              <View style={[styles.cell, styles.cell1]}><Text>{board[0][0]}</Text></View>
+              <View style={[styles.cell, styles.cell2]}><Text>{board[0][1]}</Text></View>
+              <View style={[styles.cell, styles.cell3]}><Text>{board[0][2]}</Text></View>
+              <View style={[styles.cell, styles.cell4]}><Text>{board[0][3]}</Text></View>
             </View>
             <View>
-              <View style={styles.cell}><Text>{board[1][0]}</Text></View>
-              <View style={styles.cell}><Text>{board[1][1]}</Text></View>
-              <View style={styles.cell}><Text>{board[1][2]}</Text></View>
-              <View style={styles.cell}><Text>{board[1][3]}</Text></View>
+              <View style={[styles.cell, styles.cell5]}><Text>{board[1][0]}</Text></View>
+              <View style={[styles.cell, styles.cell6]}><Text>{board[1][1]}</Text></View>
+              <View style={[styles.cell, styles.cell7]}><Text>{board[1][2]}</Text></View>
+              <View style={[styles.cell, styles.cell8]}><Text>{board[1][3]}</Text></View>
             </View>
             <View>
-              <View style={styles.cell}><Text>{board[2][0]}</Text></View>
-              <View style={styles.cell}><Text>{board[2][1]}</Text></View>
-              <View style={styles.cell}><Text>{board[2][2]}</Text></View>
-              <View style={styles.cell}><Text>{board[2][3]}</Text></View>
+              <View style={[styles.cell, styles.cell9]}><Text>{board[2][0]}</Text></View>
+              <View style={[styles.cell, styles.cell10]}><Text>{board[2][1]}</Text></View>
+              <View style={[styles.cell, styles.cell11]}><Text>{board[2][2]}</Text></View>
+              <View style={[styles.cell, styles.cell12]}><Text>{board[2][3]}</Text></View>
             </View>
             <View>
-              <View style={styles.cell}><Text>{board[3][0]}</Text></View>
-              <View style={styles.cell}><Text>{board[3][1]}</Text></View>
-              <View style={styles.cell}><Text>{board[3][2]}</Text></View>
-              <View style={styles.cell}><Text>{board[3][3]}</Text></View>
+              <View style={[styles.cell, styles.cell13]}><Text>{board[3][0]}</Text></View>
+              <View style={[styles.cell, styles.cell14]}><Text>{board[3][1]}</Text></View>
+              <View style={[styles.cell, styles.cell15]}><Text>{board[3][2]}</Text></View>
+              <View style={[styles.cell, styles.cell16]}><Text>{board[3][3]}</Text></View>
             </View>
           </View>
         </View>
@@ -136,8 +150,56 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 5, 
-    borderWidth: 3,
+    // borderWidth: 3,
     borderColor: 'lightgrey',
     borderRadius: 5,
-  }
+  },
+  cell1:{
+    backgroundColor: 'red'
+  },
+  cell2:{
+    backgroundColor: 'orangered'
+  },
+  cell3:{
+    backgroundColor: 'salmon'
+  },
+  cell4:{
+    backgroundColor: 'lightsalmon'
+  },
+  cell5:{
+    backgroundColor: 'lightblue'
+  },
+  cell6:{
+    backgroundColor: 'lightskyblue'
+  },
+  cell7:{
+    backgroundColor: 'cornflowerblue'
+  },
+  cell8:{
+    backgroundColor: 'royalblue'
+  },
+  cell9:{
+    backgroundColor: 'forestgreen'
+  },
+  cell10:{
+    backgroundColor: 'limegreen'
+  },
+  cell11:{
+    backgroundColor: 'lime'
+  },
+  cell12:{
+    backgroundColor: 'springgreen'
+  },
+  cell13:{
+    backgroundColor: 'pink'
+  },
+  cell14:{
+    backgroundColor: 'hotpink'
+  },
+  cell15:{
+    backgroundColor: 'deeppink'
+  },
+  cell16:{
+    backgroundColor: 'mediumvioletred'
+  },
 });
