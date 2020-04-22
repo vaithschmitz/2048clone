@@ -5,22 +5,47 @@ import sky from './assets/sky.jpg'
 import { reset } from 'expo/build/AR';
 
 export default function App() {
-  const startingBoard = [['','', '',''],['','',2,''],['','','',''],['','','','']]
+  const startingBoard = [['','', '',''],['','',2,''],['',2,2,''],['','','','']]
   const [board, setBoard] = useState(startingBoard)
 
   const playTurn = () => {
     let column =  Math.floor(Math.random()*4)
     let row =  Math.floor(Math.random()*4)
-    if(board[row][column] == ''){
-      board[row][column] = 2
-      setBoard([...board, board])
+    while(board[row][column] !== ''){
+      column = Math.floor(Math.random()*4)
+      row = Math.floor(Math.random()*4)
     }
-    else{
-      board[row][column] = board[row][column] * 2
-      setBoard([...board, board])
-    }
+    board[row][column] = 2
+    setBoard([...board, board])
+
   }
 
+  const moveRight = () => {
+    for(let i = 0; i< 3; i++){
+      for(let j = 0; j < 3; j++){
+        // if not empty move to farthest free space
+        if((board[i][j] !== "") && (i !== 3)){
+          // if nearest space is not empty or same number, stop
+          if(board[i+1][j]  !== "" && board[i+1][j] !== board[i][j]){
+            ''
+          }
+          // if same number, double
+          else if(board[i+1][j] == board[i][j]){
+            board[i+1][j] = board[i][j] * 2
+            board[i][j] = ""
+          }
+          else{
+            board[i+1][j] = board[i][j]
+            board[i][j] = ""
+          }
+
+        }
+
+      }
+    }
+    setBoard([...board, board])
+
+  }
 
   const addNumbers = () => {
     let newBoard = board.map(el => {
@@ -62,6 +87,7 @@ export default function App() {
         direction={Directions.RIGHT}
         onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.ACTIVE) {
+          moveRight()
           playTurn()
         }
       }}>
