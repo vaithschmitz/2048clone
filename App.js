@@ -7,6 +7,7 @@ import { reset } from 'expo/build/AR';
 export default function App() {
   const startingBoard = [['','', '',''],['','',2,''],['',2,2,''],['','','','']]
   const [board, setBoard] = useState(startingBoard)
+  const [score, setScore] = useState(0)
 
   const playTurn = () => {
     let column =  Math.floor(Math.random()*4)
@@ -17,8 +18,20 @@ export default function App() {
     }
     board[row][column] = 2
     setBoard([...board, board])
-
+    // calcScore()
   }
+
+  // const calcScore = () => {
+  //   let score = 0 
+  //   for(let i = 0; i <=3; i++){
+  //     for(let j = 0; j <= 3; j++){
+  //       if(board[i][j] !== ""){
+  //         score += board[i][j]
+  //       }
+  //     }
+  //   }
+  //   setScore(score)
+  // }
 
   const moveRight = () => {
     const scanMoves = () => {
@@ -33,6 +46,7 @@ export default function App() {
             // if same number, double
             else if(board[i+1][j] == board[i][j]){
               board[i+1][j] = board[i][j] * 2
+              setScore(score => score += board[i][j] *2)
               board[i][j] = ""
             }
             else{
@@ -50,6 +64,7 @@ export default function App() {
         if((board[i][j] !== "") && (i !== 3)){
           ''
         }
+        // if any other available moves, recurse
         else{
           scanMoves()
         }
@@ -72,6 +87,7 @@ export default function App() {
             // if same number, double
             else if(board[i-1][j] == board[i][j]){
               board[i-1][j] = board[i][j] * 2
+              setScore(score => score += board[i][j] *2)
               board[i][j] = ""
             }
             else{
@@ -134,6 +150,7 @@ export default function App() {
       }}>
         <View style={styles.screen}>
           <View style={styles.header}><TouchableOpacity onPress={resetBoard}><Text>RESET!</Text></TouchableOpacity></View>
+          <View style={styles.header}><Text>{score}</Text></View>
           <View style={styles.gridContainer}>
             <View>      
               <View style={[styles.cell, styles.cell1]}><Text>{board[0][0]}</Text></View>
