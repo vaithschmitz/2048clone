@@ -21,26 +21,38 @@ export default function App() {
   }
 
   const moveRight = () => {
+    const scanMoves = () => {
+      for(let i = 0; i<= 3; i++){
+        for(let j = 0; j <= 3; j++){
+          // if not empty move if possible
+          if((board[i][j] !== "") && (i !== 3)){
+            // if nearest space is not empty or same number, stop
+            if(board[i+1][j]  !== "" && board[i+1][j] !== board[i][j]){
+              ''
+            }
+            // if same number, double
+            else if(board[i+1][j] == board[i][j]){
+              board[i+1][j] = board[i][j] * 2
+              board[i][j] = ""
+            }
+            else{
+              board[i+1][j] = board[i][j]
+              board[i][j] = ""
+            }
+          }
+        }
+      }
+    }
+
     for(let i = 0; i<= 3; i++){
       for(let j = 0; j <= 3; j++){
         // if not empty move if possible
         if((board[i][j] !== "") && (i !== 3)){
-          // if nearest space is not empty or same number, stop
-          if(board[i+1][j]  !== "" && board[i+1][j] !== board[i][j]){
-            ''
-          }
-          // if same number, double
-          else if(board[i+1][j] == board[i][j]){
-            board[i+1][j] = board[i][j] * 2
-            board[i][j] = ""
-          }
-          else{
-            board[i+1][j] = board[i][j]
-            board[i][j] = ""
-          }
-
+          ''
         }
-
+        else{
+          scanMoves()
+        }
       }
     }
     setBoard([...board, board])
@@ -48,28 +60,39 @@ export default function App() {
   }
 
   const moveLeft = () => {
-    for(let i = 3; i>= 0; i--){
-      for(let j = 0; j <= 3; j++){
-        // if not empty move if possible
-        if((board[i][j] !== "") && (i !== 0)){
-          // if nearest space is not empty or same number, stop
-          if((board[i-1][j]  !== "") && (board[i-1][j] !== board[i][j])){
-            ''
+    const scanMoves = () => {
+      for(let i = 3; i>= 0; i--){
+        for(let j = 0; j <= 3; j++){
+          // if not empty move if possible
+          if((board[i][j] !== "") && (i !== 0)){
+            // if nearest space is not empty or same number, stop
+            if((board[i-1][j]  !== "") && (board[i-1][j] !== board[i][j])){
+              ''
+            }
+            // if same number, double
+            else if(board[i-1][j] == board[i][j]){
+              board[i-1][j] = board[i][j] * 2
+              board[i][j] = ""
+            }
+            else{
+              board[i-1][j] = board[i][j]
+              board[i][j] = ""
+            }
           }
-          // if same number, double
-          else if(board[i-1][j] == board[i][j]){
-            board[i-1][j] = board[i][j] * 2
-            board[i][j] = ""
-          }
-          else{
-            board[i-1][j] = board[i][j]
-            board[i][j] = ""
-          }
-
         }
-
       }
     }
+    // if any other available moves, recurse
+    for(let i = 3; i>= 0; i--){
+      for(let j = 0; j <= 3; j++){
+        if((board[i][j] !== "") && (i !== 0)){
+        }
+          else{
+            scanMoves()
+          }
+        }
+      }
+
     setBoard([...board, board])
 
   }
