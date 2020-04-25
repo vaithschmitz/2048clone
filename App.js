@@ -21,9 +21,9 @@ export default function App() {
   }
 
   const moveRight = () => {
-    for(let i = 0; i< 3; i++){
-      for(let j = 0; j < 3; j++){
-        // if not empty move to farthest free space
+    for(let i = 0; i<= 3; i++){
+      for(let j = 0; j <= 3; j++){
+        // if not empty move if possible
         if((board[i][j] !== "") && (i !== 3)){
           // if nearest space is not empty or same number, stop
           if(board[i+1][j]  !== "" && board[i+1][j] !== board[i][j]){
@@ -47,38 +47,34 @@ export default function App() {
 
   }
 
-  const addNumbers = () => {
-    let newBoard = board.map(el => {
-      for(let i = 0; i < 4; i++){
-        el[i]++
+  const moveLeft = () => {
+    for(let i = 3; i>= 0; i--){
+      for(let j = 0; j <= 3; j++){
+        // if not empty move if possible
+        if((board[i][j] !== "") && (i !== 0)){
+          // if nearest space is not empty or same number, stop
+          if((board[i-1][j]  !== "") && (board[i-1][j] !== board[i][j])){
+            ''
+          }
+          // if same number, double
+          else if(board[i-1][j] == board[i][j]){
+            board[i-1][j] = board[i][j] * 2
+            board[i][j] = ""
+          }
+          else{
+            board[i-1][j] = board[i][j]
+            board[i][j] = ""
+          }
+
+        }
+
       }
-    })
-    setBoard([...board, newBoard])
+    }
+    setBoard([...board, board])
+
   }
-  const subtractNumbers = () => {
-    let newBoard = board.map(el => {
-      for(let i = 0; i < 4; i++){
-        el[i]--
-      }
-    })
-    setBoard([...board, newBoard])
-  }
-  const multiplyNumbers = () => {
-    let newBoard = board.map(el => {
-      for(let i = 0; i < 4; i++){
-        el[i] = el[i]*2
-      }
-    })
-    setBoard([...board, newBoard])
-  }
-  const divideNumbers = () => {
-    let newBoard = board.map(el => {
-      for(let i = 0; i < 4; i++){
-        el[i] = el[i]/2
-      }
-    })
-    setBoard([...board, newBoard])
-  }
+
+
   const resetBoard = () => setBoard(startingBoard)
 
   return (
@@ -95,7 +91,8 @@ export default function App() {
         direction={Directions.LEFT}
         onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.ACTIVE) {
-          subtractNumbers(board)
+          moveLeft()
+          playTurn()
         }
       }}>
       <FlingGestureHandler       
