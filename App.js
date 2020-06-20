@@ -3,12 +3,43 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground ,Dimen
 import {Directions, FlingGestureHandler, State} from 'react-native-gesture-handler';
 import sky from './assets/sky.jpg'
 
+
+
+const images = {
+  Transparent:{
+    file: require('./assets/monsters/transparent.png')
+  },
+  One: {
+    file: require('./assets/monsters/lvl1.png')
+  },
+  Two:{
+    file: require('./assets/monsters/lvl2.png')
+  },
+  Three:{
+    file: require('./assets/monsters/lvl3.png')
+  },
+  Four:{
+    file: require('./assets/monsters/lvl4.png')
+  },
+  Five:{
+    file: require('./assets/monsters/lvl5.png')
+  },
+  Six:{
+    file: require('./assets/monsters/lvl6.png')
+  },
+  Seven:{
+    file: require('./assets/monsters/lvl7.png')
+  },
+  Eight:{
+    file: require('./assets/monsters/lvl8.png')
+  }
+}
+
 export default function App() {
   const startingBoard = [['','', '',''],['','',2,''],['',2,2,''],['','','','']]
-  const boardIncrements = [[false,false ,false ,false ],[false,false ,false ,false ],[false,false ,false ,false ],[false,false ,false ,false ]]
   const [board, setBoard] = useState(startingBoard)
   const [score, setScore] = useState(0)
-
+  
   const playTurn = () => {
     let column =  Math.floor(Math.random()*4)
     let row =  Math.floor(Math.random()*4)
@@ -192,6 +223,37 @@ export default function App() {
 
   const resetBoard = () => setBoard(startingBoard)
 
+  const chooseMonster = (x,y) => {
+    console.log(board[x][y])
+    if(board[x][y] == ""){
+      return images['Transparent'].file
+    }
+    if(board[x][y] == 2){
+      return images['One'].file
+    }
+    if(board[x][y] == 4){
+      return images['Two'].file
+    }    
+    if(board[x][y] == 8){
+      return images['Three'].file
+    }
+    if(board[x][y] == 16){
+      return images['Four'].file
+    }
+    if(board[x][y] == 32){
+      return images['Five'].file
+    }
+    if(board[x][y] == 64){
+      return images['Six'].file
+    }
+    if(board[x][y] == 128){
+      return images['Seven'].file
+    }
+    if(board[x][y] == 256){
+      return images['Seven'].file
+    }
+  }
+
   return (
     <ImageBackground source={sky} style={styles.bg}>
       <FlingGestureHandler       
@@ -231,28 +293,28 @@ export default function App() {
           {/* <View style={styles.header}><Text>{score}</Text></View> */}
           <View style={styles.gridContainer}>
             <View>      
-              <View style={[styles.cell, styles.cell1]}><Text>{board[0][0]}</Text></View>
-              <View style={[styles.cell, styles.cell2]}><Text>{board[0][1]}</Text></View>
-              <View style={[styles.cell, styles.cell3]}><Text>{board[0][2]}</Text></View>
-              <View style={[styles.cell, styles.cell4]}><Text>{board[0][3]}</Text></View>
+              <View style={[styles.cell, styles.cell1]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,0)}></Image></View>
+              <View style={[styles.cell, styles.cell2]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,1)}></Image></View>
+              <View style={[styles.cell, styles.cell3]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,2)}></Image></View>
+              <View style={[styles.cell, styles.cell4]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,3)}></Image></View>
             </View>
             <View>
-              <View style={[styles.cell, styles.cell5]}><Text>{board[1][0]}</Text></View>
-              <View style={[styles.cell, styles.cell6]}><Text>{board[1][1]}</Text></View>
-              <View style={[styles.cell, styles.cell7]}><Text>{board[1][2]}</Text></View>
-              <View style={[styles.cell, styles.cell8]}><Text>{board[1][3]}</Text></View>
+            <View style={[styles.cell, styles.cell1]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(1,0)}></Image></View>
+              <View style={[styles.cell, styles.cell2]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(1,1)}></Image></View>
+              <View style={[styles.cell, styles.cell3]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(1,2)}></Image></View>
+              <View style={[styles.cell, styles.cell4]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(1,3)}></Image></View>
             </View>
             <View>
-              <View style={[styles.cell, styles.cell9]}><Text>{board[2][0]}</Text></View>
-              <View style={[styles.cell, styles.cell10]}><Text>{board[2][1]}</Text></View>
-              <View style={[styles.cell, styles.cell11]}><Text>{board[2][2]}</Text></View>
-              <View style={[styles.cell, styles.cell12]}><Text>{board[2][3]}</Text></View>
+            <View style={[styles.cell, styles.cell1]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(2,0)}></Image></View>
+              <View style={[styles.cell, styles.cell2]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(2,1)}></Image></View>
+              <View style={[styles.cell, styles.cell3]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(2,2)}></Image></View>
+              <View style={[styles.cell, styles.cell4]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(2,3)}></Image></View>
             </View>
             <View>
-              <View style={[styles.cell, styles.cell13]}><Text>{board[3][0]}</Text></View>
-              <View style={[styles.cell, styles.cell14]}><Text>{board[3][1]}</Text></View>
-              <View style={[styles.cell, styles.cell15]}><Text>{board[3][2]}</Text></View>
-              <View style={[styles.cell, styles.cell16]}><Text>{board[3][3]}</Text></View>
+            <View style={[styles.cell, styles.cell1]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(3,0)}></Image></View>
+              <View style={[styles.cell, styles.cell2]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(3,1)}></Image></View>
+              <View style={[styles.cell, styles.cell3]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(3,2)}></Image></View>
+              <View style={[styles.cell, styles.cell4]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(3,3)}></Image></View>
             </View>
           </View>
         </View>
