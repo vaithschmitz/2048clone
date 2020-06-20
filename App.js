@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground ,Dimensions, Alert } from 'react-native';
 import {Directions, FlingGestureHandler, State} from 'react-native-gesture-handler';
 import sky from './assets/sky.jpg'
-import { reset } from 'expo/build/AR';
 
 export default function App() {
   const startingBoard = [['','', '',''],['','',2,''],['',2,2,''],['','','','']]
+  const boardIncrements = [[false,false ,false ,false ],[false,false ,false ,false ],[false,false ,false ,false ],[false,false ,false ,false ]]
   const [board, setBoard] = useState(startingBoard)
   const [score, setScore] = useState(0)
 
@@ -21,17 +21,17 @@ export default function App() {
     // calcScore()
   }
 
-  // const calcScore = () => {
-  //   let score = 0 
-  //   for(let i = 0; i <=3; i++){
-  //     for(let j = 0; j <= 3; j++){
-  //       if(board[i][j] !== ""){
-  //         score += board[i][j]
-  //       }
-  //     }
-  //   }
-  //   setScore(score)
-  // }
+  const calcScore = () => {
+    let score = 0 
+    for(let i = 0; i <=3; i++){
+      for(let j = 0; j <= 3; j++){
+        if(board[i][j] !== ""){
+          score += board[i][j]
+        }
+      }
+    }
+    setScore(score)
+  }
 
   const moveRight = () => {
     const scanMoves = () => {
@@ -112,6 +112,82 @@ export default function App() {
     setBoard([...board, board])
 
   }
+  const moveUp = () => {
+    const scanMoves = () => {
+      for(let i = 0; i<= 3; i++){
+        for(let j = 3; j >= 0; j--){
+          // if not empty move if possible
+          if((board[i][j] !== "") && (j !== 0)){
+            // if nearest space is not empty or same number, stop
+            if((board[i][j-1]  !== "") && (board[i][j-1] !== board[i][j])){
+              ''
+            }
+            // if same number, double
+            else if(board[i][j-1] == board[i][j]){
+              board[i][j-1] = board[i][j] * 2
+              // setScore(score => score += board[i][j] *2)
+              board[i][j] = ""
+            }
+            else{
+              board[i][j-1] = board[i][j]
+              board[i][j] = ""
+            }
+          }
+        }
+      }
+    }
+    // if any other available moves, recurse
+    for(let i = 0; i<= 3; i++){
+      for(let j = 3; j >= 0; j--){
+        if((board[i][j] !== "") && (j !== 0)){
+        }
+          else{
+            scanMoves()
+          }
+        }
+      }
+
+    setBoard([...board, board])
+
+  }
+  const moveDown = () => {
+    const scanMoves = () => {
+      for(let i = 0; i<= 3; i++){
+        for(let j = 0; j <= 3; j++){
+          // if not empty move if possible
+          if((board[i][j] !== "") && (j !== 3)){
+            // if nearest space is not empty or same number, stop
+            if((board[i][j+1]  !== "") && (board[i][j+1] !== board[i][j])){
+              ''
+            }
+            // if same number, double
+            else if(board[i][j+1] == board[i][j]){
+              board[i][j+1] = board[i][j] * 2
+              // setScore(score => score += board[i][j] *2)
+              board[i][j] = ""
+            }
+            else{
+              board[i][j+1] = board[i][j]
+              board[i][j] = ""
+            }
+          }
+        }
+      }
+    }
+    // if any other available moves, recurse
+    for(let i = 0; i<= 3; i++){
+      for(let j = 0; j <= 3; j++){
+        if((board[i][j] !== "") && (j !== 3)){
+        }
+          else{
+            scanMoves()
+          }
+        }
+      }
+
+    setBoard([...board, board])
+
+  }
 
 
   const resetBoard = () => setBoard(startingBoard)
@@ -138,19 +214,21 @@ export default function App() {
         direction={Directions.UP}
         onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.ACTIVE) {
-          multiplyNumbers(board)
+          moveUp()
+          playTurn()
         }
       }}>
       <FlingGestureHandler       
         direction={Directions.DOWN}
         onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.ACTIVE) {
-          divideNumbers(board)
+          moveDown()
+          playTurn()
         }
       }}>
         <View style={styles.screen}>
           <View style={styles.header}><TouchableOpacity onPress={resetBoard}><Text>RESET!</Text></TouchableOpacity></View>
-          <View style={styles.header}><Text>{score}</Text></View>
+          {/* <View style={styles.header}><Text>{score}</Text></View> */}
           <View style={styles.gridContainer}>
             <View>      
               <View style={[styles.cell, styles.cell1]}><Text>{board[0][0]}</Text></View>
