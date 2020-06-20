@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground ,Dimensions, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground ,Dimensions, Vibration, Alert } from 'react-native';
 import {Directions, FlingGestureHandler, State} from 'react-native-gesture-handler';
 import sky from './assets/sky.jpg'
-
-
 
 const images = {
   Transparent:{
@@ -32,11 +30,38 @@ const images = {
   },
   Eight:{
     file: require('./assets/monsters/lvl8.png')
+  },
+  Nine:{
+    file: require('./assets/monsters/lvl9.png')
+  },
+  Ten:{
+    file: require('./assets/monsters/lvl10.png')
+  },
+  Eleven:{
+    file: require('./assets/monsters/lvl11.png')
+  },
+  Twelve:{
+    file: require('./assets/monsters/lvl12.png')
+  },
+  Thirteen:{
+    file: require('./assets/monsters/lvl13.png')
+  },
+  Fourteen:{
+    file: require('./assets/monsters/lvl14.png')
+  },
+  Fifteen:{
+    file: require('./assets/monsters/lvl15.png')
+  },
+  Sixteen:{
+    file: require('./assets/monsters/lvl16.png')
+  },
+  Seventeen:{
+    file: require('./assets/monsters/lvl17.png')
   }
 }
 
 export default function App() {
-  const startingBoard = [['','', '',''],['','',2,''],['',2,2,''],['','','','']]
+  const startingBoard = [['','', '',''],['','',2,''],['','',2,''],['','','','']]
   const [board, setBoard] = useState(startingBoard)
   const [score, setScore] = useState(0)
   
@@ -221,7 +246,10 @@ export default function App() {
   }
 
 
-  const resetBoard = () => setBoard(startingBoard)
+  const resetBoard = () => {
+    Vibration.vibrate([100,100,100])
+    setBoard(startingBoard)
+  }
 
   const chooseMonster = (x,y) => {
     console.log(board[x][y])
@@ -250,7 +278,34 @@ export default function App() {
       return images['Seven'].file
     }
     if(board[x][y] == 256){
-      return images['Seven'].file
+      return images['Eight'].file
+    }
+    if(board[x][y] == 512){
+      return images['Nine'].file
+    }
+    if(board[x][y] == 1024){
+      return images['Ten'].file
+    }
+    if(board[x][y] == 2048){
+      return images['Eleven'].file
+    }
+    if(board[x][y] == 4096){
+      return images['Twelve'].file
+    }
+    if(board[x][y] == 8192){
+      return images['Thirteen'].file
+    }
+    if(board[x][y] == 16384){
+      return images['Fourteen'].file
+    }
+    if(board[x][y] == 32768){
+      return images['Fifteen'].file
+    }
+    if(board[x][y] == 65536){
+      return images['Sixteen'].file
+    }
+    if(board[x][y] == 131072){
+      return images['Seventeen'].file
     }
   }
 
@@ -289,7 +344,23 @@ export default function App() {
         }
       }}>
         <View style={styles.screen}>
-          <View style={styles.header}><TouchableOpacity onPress={resetBoard}><Text>RESET!</Text></TouchableOpacity></View>
+          <View style={styles.header}><TouchableOpacity style={styles.Reset} onPress={() => {
+            Alert.alert(
+              'Restart Game?',
+              'This will reset your progress',
+              [{
+                text: 'Yep!',
+                onPress: () => resetBoard()
+              },
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel'
+              },
+            { cancelable: false }]
+          )}}>
+<Text>RESET!</Text>
+</TouchableOpacity></View>
           {/* <View style={styles.header}><Text>{score}</Text></View> */}
           <View style={styles.gridContainer}>
             <View>      
@@ -347,13 +418,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  Reset:{
+    height: 50, 
+    width: 100, 
+    borderRadius:10,
+    backgroundColor: "#DDDDDD",
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontFamily: 'Iowan Old Style', 
+    fontWeight: 'bold', 
+    elevation: 5
+
+  },
   cell: {
     height: 75,
     width: 75,
     justifyContent: 'center',
     alignItems: 'center',
     margin: 5, 
-    // borderWidth: 3,
     borderColor: 'lightgrey',
     borderRadius: 5,
   },
