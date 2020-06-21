@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground ,Dimensions, Vibration, Alert, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground ,Dimensions, Vibration, Alert, Modal } from 'react-native';
 import {Directions, FlingGestureHandler, State} from 'react-native-gesture-handler';
 import Constants from 'expo-constants';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -125,7 +125,8 @@ export default function App() {
   const [board, setBoard] = useState(startingBoard)
   const [score, setScore] = useState(0)
   const [theme, setTheme] = useState('numbers')
-  
+  const [modalVisible, setModalVisible] = useState(false)
+
   const playTurn = () => {
     let column =  Math.floor(Math.random()*4)
     let row =  Math.floor(Math.random()*4)
@@ -308,6 +309,7 @@ export default function App() {
 
 
   const resetBoard = () => {
+    setModalVisible(false)
     Vibration.vibrate([100,100,100])
     setScore(0)
     setBoard(startingBoard)
@@ -408,9 +410,20 @@ export default function App() {
       }}>
         <View style={styles.screen}>
           <View style={styles.header}>
-          {/* <View style={styles.header}> */}
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
             
-            {/* <TouchableOpacity style={styles.Reset} onPress={() => {
+
+            <TouchableOpacity style={styles.Reset} onPress={() => {
               Alert.alert(
                 'Restart Game?',
                 'This will reset your progress',
@@ -425,9 +438,29 @@ export default function App() {
               { cancelable: false }]
               )}}>
               <Text>RESET!</Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
+            <Text style={styles.modalText}>Change Tiles</Text>
+            <View style={styles.modalThemes}>
+              <TouchableOpacity style={styles.Reset} 
+                onPress={() => {
+                  setModalVisible(false)
+                  setTheme('numbers')
+                }}>
+                <Text>Numbers</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.Reset} 
+                onPress={() => {
+                  setModalVisible(false)
+                  setTheme('monsters')
+                }}>
+                <Text>Monsters</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
             <TouchableOpacity style={styles.menu} onPress={() => {
-              theme == 'monsters' ? setTheme('numbers') : setTheme('monsters')
+              setModalVisible(true)
               }}>
               <Image source={require('./assets/menu.png')} style={{ width: "100%", height: "100%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
             </TouchableOpacity>
@@ -492,8 +525,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: Dimensions.get('window').width,
     height: Dimensions.get('screen').height / 10,
-    // backgroundColor: 'rgba(155, 155, 155, 10)',
-    // borderBottomWidth: 3,
     borderColor: 'lightgrey',
     paddingTop: Constants.statusBarHeight
   },
@@ -520,6 +551,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignSelf: 'center',
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalButtons:{
+
+  },
+  modalThemes:{
+    flexDirection: 'row'
+  },
   Reset:{
     height: 50, 
     width: 100, 
@@ -538,55 +596,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 5, 
+    borderWidth: 2,
     borderColor: 'lightgrey',
     borderRadius: 5,
-  },
-  cell1:{
-    backgroundColor: 'red'
-  },
-  cell2:{
-    backgroundColor: 'orangered'
-  },
-  cell3:{
-    backgroundColor: 'salmon'
-  },
-  cell4:{
-    backgroundColor: 'lightsalmon'
-  },
-  cell5:{
-    backgroundColor: 'lightblue'
-  },
-  cell6:{
-    backgroundColor: 'lightskyblue'
-  },
-  cell7:{
-    backgroundColor: 'cornflowerblue'
-  },
-  cell8:{
-    backgroundColor: 'royalblue'
-  },
-  cell9:{
-    backgroundColor: 'forestgreen'
-  },
-  cell10:{
-    backgroundColor: 'limegreen'
-  },
-  cell11:{
-    backgroundColor: 'lime'
-  },
-  cell12:{
-    backgroundColor: 'springgreen'
-  },
-  cell13:{
-    backgroundColor: 'pink'
-  },
-  cell14:{
-    backgroundColor: 'hotpink'
-  },
-  cell15:{
-    backgroundColor: 'deeppink'
-  },
-  cell16:{
-    backgroundColor: 'mediumvioletred'
-  },
+  }
 });
