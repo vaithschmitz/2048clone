@@ -6,59 +6,117 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import sky from './assets/sky.jpg'
 
 const images = {
-  Transparent:{
-    file: require('./assets/monsters/transparent.png')
+  monsters:{
+    Transparent:{
+      file: require('./assets/monsters/transparent.png')
+    },
+    One: {
+      file: require('./assets/monsters/lvl1.png')
+    },
+    Two:{
+      file: require('./assets/monsters/lvl2.png')
+    },
+    Three:{
+      file: require('./assets/monsters/lvl3.png')
+    },
+    Four:{
+      file: require('./assets/monsters/lvl4.png')
+    },
+    Five:{
+      file: require('./assets/monsters/lvl5.png')
+    },
+    Six:{
+      file: require('./assets/monsters/lvl6.png')
+    },
+    Seven:{
+      file: require('./assets/monsters/lvl7.png')
+    },
+    Eight:{
+      file: require('./assets/monsters/lvl8.png')
+    },
+    Nine:{
+      file: require('./assets/monsters/lvl9.png')
+    },
+    Ten:{
+      file: require('./assets/monsters/lvl10.png')
+    },
+    Eleven:{
+      file: require('./assets/monsters/lvl11.png')
+    },
+    Twelve:{
+      file: require('./assets/monsters/lvl12.png')
+    },
+    Thirteen:{
+      file: require('./assets/monsters/lvl13.png')
+    },
+    Fourteen:{
+      file: require('./assets/monsters/lvl14.png')
+    },
+    Fifteen:{
+      file: require('./assets/monsters/lvl15.png')
+    },
+    Sixteen:{
+      file: require('./assets/monsters/lvl16.png')
+    },
+    Seventeen:{
+      file: require('./assets/monsters/lvl17.png')
+    }
   },
-  One: {
-    file: require('./assets/monsters/lvl1.png')
-  },
-  Two:{
-    file: require('./assets/monsters/lvl2.png')
-  },
-  Three:{
-    file: require('./assets/monsters/lvl3.png')
-  },
-  Four:{
-    file: require('./assets/monsters/lvl4.png')
-  },
-  Five:{
-    file: require('./assets/monsters/lvl5.png')
-  },
-  Six:{
-    file: require('./assets/monsters/lvl6.png')
-  },
-  Seven:{
-    file: require('./assets/monsters/lvl7.png')
-  },
-  Eight:{
-    file: require('./assets/monsters/lvl8.png')
-  },
-  Nine:{
-    file: require('./assets/monsters/lvl9.png')
-  },
-  Ten:{
-    file: require('./assets/monsters/lvl10.png')
-  },
-  Eleven:{
-    file: require('./assets/monsters/lvl11.png')
-  },
-  Twelve:{
-    file: require('./assets/monsters/lvl12.png')
-  },
-  Thirteen:{
-    file: require('./assets/monsters/lvl13.png')
-  },
-  Fourteen:{
-    file: require('./assets/monsters/lvl14.png')
-  },
-  Fifteen:{
-    file: require('./assets/monsters/lvl15.png')
-  },
-  Sixteen:{
-    file: require('./assets/monsters/lvl16.png')
-  },
-  Seventeen:{
-    file: require('./assets/monsters/lvl17.png')
+  numbers:{
+    Transparent:{
+      file: require('./assets/monsters/transparent.png')
+    },
+    One: {
+      file: require('./assets/numbers/2.png')
+    },
+    Two:{
+      file: require('./assets/numbers/4.png')
+    },
+    Three:{
+      file: require('./assets/numbers/8.png')
+    },
+    Four:{
+      file: require('./assets/numbers/16.png')
+    },
+    Five:{
+      file: require('./assets/numbers/32.png')
+    },
+    Six:{
+      file: require('./assets/numbers/64.png')
+    },
+    Seven:{
+      file: require('./assets/numbers/128.png')
+    },
+    Eight:{
+      file: require('./assets/numbers/256.png')
+    },
+    Nine:{
+      file: require('./assets/numbers/512.png')
+    },
+    Ten:{
+      file: require('./assets/numbers/1024.png')
+    },
+    Eleven:{
+      file: require('./assets/numbers/4096.png')
+    },
+    Twelve:{
+      file: require('./assets/numbers/2048.png')
+    },
+    Thirteen:{
+      file: require('./assets/numbers/8192.png')
+    },
+    Fourteen:{
+      file: require('./assets/numbers/16384.png')
+    },
+    Fifteen:{
+      file: require('./assets/numbers/32768.png')
+    },
+    Sixteen:{
+      file: require('./assets/numbers/65536.png')
+    },
+    Seventeen:{
+      file: require('./assets/numbers/131072.png')
+    }
   }
 }
 
@@ -66,6 +124,7 @@ export default function App() {
   const startingBoard = [['','', '',''],['','',2,''],['','',2,''],['','','','']]
   const [board, setBoard] = useState(startingBoard)
   const [score, setScore] = useState(0)
+  const [theme, setTheme] = useState('numbers')
   
   const playTurn = () => {
     let column =  Math.floor(Math.random()*4)
@@ -257,58 +316,58 @@ export default function App() {
   const chooseMonster = (x,y) => {
     console.log(board[x][y])
     if(board[x][y] == ""){
-      return images['Transparent'].file
+      return images[theme]['Transparent'].file
     }
     if(board[x][y] == 2){
-      return images['One'].file
+      return images[theme]['One'].file
     }
     if(board[x][y] == 4){
-      return images['Two'].file
+      return images[theme]['Two'].file
     }    
     if(board[x][y] == 8){
-      return images['Three'].file
+      return images[theme]['Three'].file
     }
     if(board[x][y] == 16){
-      return images['Four'].file
+      return images[theme]['Four'].file
     }
     if(board[x][y] == 32){
-      return images['Five'].file
+      return images[theme]['Five'].file
     }
     if(board[x][y] == 64){
-      return images['Six'].file
+      return images[theme]['Six'].file
     }
     if(board[x][y] == 128){
-      return images['Seven'].file
+      return images[theme]['Seven'].file
     }
     if(board[x][y] == 256){
-      return images['Eight'].file
+      return images[theme]['Eight'].file
     }
     if(board[x][y] == 512){
-      return images['Nine'].file
+      return images[theme]['Nine'].file
     }
     if(board[x][y] == 1024){
-      return images['Ten'].file
+      return images[theme]['Ten'].file
     }
     if(board[x][y] == 2048){
-      return images['Eleven'].file
+      return images[theme]['Eleven'].file
     }
     if(board[x][y] == 4096){
-      return images['Twelve'].file
+      return images[theme]['Twelve'].file
     }
     if(board[x][y] == 8192){
-      return images['Thirteen'].file
+      return images[theme]['Thirteen'].file
     }
     if(board[x][y] == 16384){
-      return images['Fourteen'].file
+      return images[theme]['Fourteen'].file
     }
     if(board[x][y] == 32768){
-      return images['Fifteen'].file
+      return images[theme]['Fifteen'].file
     }
     if(board[x][y] == 65536){
-      return images['Sixteen'].file
+      return images[theme]['Sixteen'].file
     }
     if(board[x][y] == 131072){
-      return images['Seventeen'].file
+      return images[theme]['Seventeen'].file
     }
   }
 
@@ -367,13 +426,21 @@ export default function App() {
               )}}>
               <Text>RESET!</Text>
             </TouchableOpacity> */}
-            <TouchableOpacity style={styles.menu}></TouchableOpacity>
-            <TouchableOpacity style={styles.score}></TouchableOpacity>
+            <TouchableOpacity style={styles.menu} onPress={() => {
+              theme == 'monsters' ? setTheme('numbers') : setTheme('monsters')
+              }}>
+              <Image source={require('./assets/menu.png')} style={{ width: "100%", height: "100%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.score}>
+              <Image source={require('./assets/coin.png')} style={{ width: "50%", height: "50%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
+              <Text style={{ alignSelf: 'center', fontSize: 30, color: 'white'}}>134,133</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.lvl}>
               <Image source={require('./assets/crown.png')} style={{ width: "50%", height: "50%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
               <Text style={{ alignSelf: 'center', fontSize: 30, color: 'white'}}>1241</Text>
             </TouchableOpacity>
             </View>
+            {/* <TouchableOpacity><Text>Switch Theme</Text></TouchableOpacity> */}
           <View style={styles.gridContainer}>
             <View>      
               <View style={[styles.cell, styles.cell1]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,0)}></Image></View>
