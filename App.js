@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground ,Dimensions, Vibration, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground ,Dimensions, Vibration, Alert, SafeAreaView } from 'react-native';
 import {Directions, FlingGestureHandler, State} from 'react-native-gesture-handler';
+import Constants from 'expo-constants';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import sky from './assets/sky.jpg'
 
 const images = {
@@ -181,7 +183,7 @@ export default function App() {
             // if same number, double
             else if(board[i][j-1] == board[i][j]){
               board[i][j-1] = board[i][j] * 2
-              // setScore(score => score += board[i][j] *2)
+              setScore(score => score += board[i][j] *2)
               board[i][j] = ""
             }
             else{
@@ -219,7 +221,7 @@ export default function App() {
             // if same number, double
             else if(board[i][j+1] == board[i][j]){
               board[i][j+1] = board[i][j] * 2
-              // setScore(score => score += board[i][j] *2)
+              setScore(score => score += board[i][j] *2)
               board[i][j] = ""
             }
             else{
@@ -248,6 +250,7 @@ export default function App() {
 
   const resetBoard = () => {
     Vibration.vibrate([100,100,100])
+    setScore(0)
     setBoard(startingBoard)
   }
 
@@ -310,6 +313,7 @@ export default function App() {
   }
 
   return (
+    <View>
     <ImageBackground source={sky} style={styles.bg}>
       <FlingGestureHandler       
         direction={Directions.RIGHT}
@@ -344,24 +348,32 @@ export default function App() {
         }
       }}>
         <View style={styles.screen}>
-          <View style={styles.header}><TouchableOpacity style={styles.Reset} onPress={() => {
-            Alert.alert(
-              'Restart Game?',
-              'This will reset your progress',
-              [{
-                text: 'Yep!',
-                onPress: () => resetBoard()
-              },
-              {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel'
-              },
-            { cancelable: false }]
-          )}}>
-<Text>RESET!</Text>
-</TouchableOpacity></View>
-          {/* <View style={styles.header}><Text>{score}</Text></View> */}
+          <View style={styles.header}>
+          {/* <View style={styles.header}> */}
+            
+            {/* <TouchableOpacity style={styles.Reset} onPress={() => {
+              Alert.alert(
+                'Restart Game?',
+                'This will reset your progress',
+                [{
+                  text: 'Yep!',
+                  onPress: () => resetBoard()
+                },
+                {
+                  text: 'Cancel',
+                  style: 'cancel'
+                },
+              { cancelable: false }]
+              )}}>
+              <Text>RESET!</Text>
+            </TouchableOpacity> */}
+            <TouchableOpacity style={styles.menu}></TouchableOpacity>
+            <TouchableOpacity style={styles.score}></TouchableOpacity>
+            <TouchableOpacity style={styles.lvl}>
+              <Image source={require('./assets/crown.png')} style={{ width: "50%", height: "50%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
+              <Text style={{ alignSelf: 'center', fontSize: 30, color: 'white'}}>1241</Text>
+            </TouchableOpacity>
+            </View>
           <View style={styles.gridContainer}>
             <View>      
               <View style={[styles.cell, styles.cell1]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,0)}></Image></View>
@@ -394,6 +406,7 @@ export default function App() {
       </FlingGestureHandler>
       </FlingGestureHandler>
     </ImageBackground>
+    </View>
   );
 }
 
@@ -408,9 +421,31 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   header:{
-    flex: 1,
+    flexDirection: 'row',
     alignSelf: 'center',
-    top : 100
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('screen').height / 10,
+    // backgroundColor: 'rgba(155, 155, 155, 10)',
+    // borderBottomWidth: 3,
+    borderColor: 'lightgrey',
+    paddingTop: Constants.statusBarHeight
+  },
+  menu:{
+    width: Dimensions.get('window').width /3,
+    height: Dimensions.get('screen').height / 10,
+    backgroundColor: '#ec4d7f'
+
+  },
+  score:{
+    width: Dimensions.get('window').width /3,
+    height: Dimensions.get('screen').height / 10,
+    backgroundColor: '#7fec4d'
+
+  }, 
+  lvl:{
+    width: Dimensions.get('window').width /3,
+    height: Dimensions.get('screen').height / 10,
+    backgroundColor:'#4d7fec'
   },
   gridContainer: {
     flex:1,
