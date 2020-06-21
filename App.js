@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground ,Dimensions, Vibration, Alert, Modal } from 'react-native';
 import {Directions, FlingGestureHandler, State} from 'react-native-gesture-handler';
 import Constants from 'expo-constants';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import sky from './assets/sky.jpg'
 
 const images = {
@@ -125,6 +124,7 @@ export default function App() {
   const [board, setBoard] = useState(startingBoard)
   const [score, setScore] = useState(0)
   const [theme, setTheme] = useState('numbers')
+  const [themeColor, setThemeColor] = useState('#89cff0')
   const [modalVisible, setModalVisible] = useState(false)
 
   const playTurn = () => {
@@ -374,7 +374,7 @@ export default function App() {
   }
 
   return (
-    <View>
+    <View style={styles.screen}>
     <ImageBackground source={sky} style={styles.bg}>
       <FlingGestureHandler       
         direction={Directions.RIGHT}
@@ -421,9 +421,7 @@ export default function App() {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            
-
-            <TouchableOpacity style={styles.Reset} onPress={() => {
+            <TouchableOpacity style={styles.modalButtons} onPress={() => {
               Alert.alert(
                 'Restart Game?',
                 'This will reset your progress',
@@ -434,21 +432,21 @@ export default function App() {
                 {
                   text: 'Cancel',
                   style: 'cancel'
-                },
-              { cancelable: false }]
+                }],
+              { cancelable: false }
               )}}>
               <Text>RESET!</Text>
             </TouchableOpacity>
             <Text style={styles.modalText}>Change Tiles</Text>
             <View style={styles.modalThemes}>
-              <TouchableOpacity style={styles.Reset} 
+              <TouchableOpacity style={styles.modalButtons} 
                 onPress={() => {
                   setModalVisible(false)
                   setTheme('numbers')
                 }}>
                 <Text>Numbers</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.Reset} 
+              <TouchableOpacity style={styles.modalButtons} 
                 onPress={() => {
                   setModalVisible(false)
                   setTheme('monsters')
@@ -514,11 +512,14 @@ const styles = StyleSheet.create({
   bg:{
     width: Dimensions.get('window').width, 
     height: Dimensions.get('screen').height, 
-    resizeMode: 'contain'
+    resizeMode: 'contain',
+    flexDirection: 'column'
   },
   screen: {
     flex:1,
-    flexDirection: 'column',
+    // width: Dimensions.get('window').width, 
+    // height: Dimensions.get('screen').height, 
+    
   },
   header:{
     flexDirection: 'row',
@@ -558,6 +559,7 @@ const styles = StyleSheet.create({
     padding: 35,
     alignSelf: 'center',
     alignItems: "center",
+    justifyContent: 'space-between',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -573,12 +575,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalButtons:{
-
-  },
-  modalThemes:{
-    flexDirection: 'row'
-  },
-  Reset:{
     height: 50, 
     width: 100, 
     borderRadius:10,
@@ -588,7 +584,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Iowan Old Style', 
     fontWeight: 'bold', 
     elevation: 5
-
+  },
+  modalThemes:{
+    flexDirection: 'row'
   },
   cell: {
     height: 75,
@@ -601,3 +599,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   }
 });
+
+
+
