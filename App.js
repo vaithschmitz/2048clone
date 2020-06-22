@@ -451,7 +451,7 @@ export default function App() {
               <Image source={require('./assets/menu.png')} style={{ width: "100%", height: "100%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
             </TouchableOpacity>
             <TouchableOpacity style={styles.score}>
-              <Image source={require('./assets/coin.png')} style={{ width: "50%", height: "50%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
+              <Image source={require('./assets/score.png')} style={{ width: "50%", height: "50%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
               <Text style={{ alignSelf: 'center', fontSize: 30, color: 'white'}}>{score}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.lvl}>
@@ -520,19 +520,19 @@ const styles = StyleSheet.create({
   menu:{
     width: Dimensions.get('window').width /3,
     height: Dimensions.get('screen').height / 10,
-    backgroundColor: '#ec4d7f'
+    // backgroundColor: '#ec4d7f'
 
   },
   score:{
     width: Dimensions.get('window').width /3,
     height: Dimensions.get('screen').height / 10,
-    backgroundColor: '#7fec4d'
+    // backgroundColor: '#7fec4d'
 
   }, 
   lvl:{
     width: Dimensions.get('window').width /3,
     height: Dimensions.get('screen').height / 10,
-    backgroundColor:'#4d7fec'
+    // backgroundColor:'#4d7fec'
   },
   gridContainer: {
     flex:1,
