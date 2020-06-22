@@ -139,8 +139,8 @@ export default function App() {
     
   }
 
-  const calcScore = () => {
-    setScore(board.flat().filter(el => el > 0).reduce((a,b) => a+b) +2)
+  const calcScore = i => {
+    setScore(score => score += i)
   }
 
   const moveRight = () => {
@@ -156,6 +156,7 @@ export default function App() {
             // if same number, double
             else if(board[i+1][j] == board[i][j]){
               board[i+1][j] = board[i][j] * 2
+              calcScore((board[i][j] * 2))
               board[i][j] = ""
             }
             else{
@@ -179,7 +180,6 @@ export default function App() {
         }
       }
     }
-    calcScore()
     setBoard([...board, board])
 
   }
@@ -197,6 +197,7 @@ export default function App() {
             // if same number, double
             else if(board[i-1][j] == board[i][j]){
               board[i-1][j] = board[i][j] * 2
+              calcScore((board[i][j] * 2))
               board[i][j] = ""
             }
             else{
@@ -217,7 +218,6 @@ export default function App() {
           }
         }
       }
-    calcScore()
     setBoard([...board, board])
 
   }
@@ -234,6 +234,7 @@ export default function App() {
             // if same number, double
             else if(board[i][j-1] == board[i][j]){
               board[i][j-1] = board[i][j] * 2
+              calcScore((board[i][j] * 2))
               board[i][j] = ""
             }
             else{
@@ -254,7 +255,6 @@ export default function App() {
           }
         }
       }
-    calcScore()
     setBoard([...board, board])
 
   }
@@ -271,6 +271,7 @@ export default function App() {
             // if same number, double
             else if(board[i][j+1] == board[i][j]){
               board[i][j+1] = board[i][j] * 2
+              calcScore((board[i][j] * 2))
               board[i][j] = ""
             }
             else{
@@ -291,7 +292,6 @@ export default function App() {
           }
         }
       }
-    calcScore()
     setBoard([...board, board])
 
   }
