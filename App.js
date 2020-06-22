@@ -448,7 +448,8 @@ export default function App() {
             <TouchableOpacity style={styles.menu} onPress={() => {
               setModalVisible(true)
               }}>
-              <Image source={require('./assets/menu.png')} style={{ width: "100%", height: "100%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
+              <Image source={require('./assets/menu.png')} style={{ width: "50%", height: "50%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
+              <Image source={require('./assets/home.png')} style={{ width: "35%", height: "35%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
             </TouchableOpacity>
             <TouchableOpacity style={styles.score}>
               <Image source={require('./assets/score.png')} style={{ width: "50%", height: "50%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
@@ -459,7 +460,6 @@ export default function App() {
               <Text style={{ alignSelf: 'center', fontSize: 30, color: 'white'}}>1241</Text>
             </TouchableOpacity>
             </View>
-            {/* <TouchableOpacity><Text>Switch Theme</Text></TouchableOpacity> */}
           <View style={styles.gridContainer}>
             <View>      
               <View style={[styles.cell, styles.cell1]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,0)}></Image></View>
