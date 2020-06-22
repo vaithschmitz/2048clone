@@ -136,19 +136,11 @@ export default function App() {
     }
     board[row][column] = 2
     setBoard([...board, board])
-    // calcScore()
+    
   }
 
   const calcScore = () => {
-    let score = 0 
-    for(let i = 0; i <=3; i++){
-      for(let j = 0; j <= 3; j++){
-        if(board[i][j] !== ""){
-          score += board[i][j]
-        }
-      }
-    }
-    setScore(score)
+    setScore(board.flat().filter(el => el > 0).reduce((a,b) => a+b) +2)
   }
 
   const moveRight = () => {
@@ -164,7 +156,6 @@ export default function App() {
             // if same number, double
             else if(board[i+1][j] == board[i][j]){
               board[i+1][j] = board[i][j] * 2
-              setScore(score => score += board[i][j] *2)
               board[i][j] = ""
             }
             else{
@@ -188,6 +179,7 @@ export default function App() {
         }
       }
     }
+    calcScore()
     setBoard([...board, board])
 
   }
@@ -205,7 +197,6 @@ export default function App() {
             // if same number, double
             else if(board[i-1][j] == board[i][j]){
               board[i-1][j] = board[i][j] * 2
-              setScore(score => score += board[i][j] *2)
               board[i][j] = ""
             }
             else{
@@ -226,7 +217,7 @@ export default function App() {
           }
         }
       }
-
+    calcScore()
     setBoard([...board, board])
 
   }
@@ -243,7 +234,6 @@ export default function App() {
             // if same number, double
             else if(board[i][j-1] == board[i][j]){
               board[i][j-1] = board[i][j] * 2
-              setScore(score => score += board[i][j] *2)
               board[i][j] = ""
             }
             else{
@@ -264,7 +254,7 @@ export default function App() {
           }
         }
       }
-
+    calcScore()
     setBoard([...board, board])
 
   }
@@ -281,7 +271,6 @@ export default function App() {
             // if same number, double
             else if(board[i][j+1] == board[i][j]){
               board[i][j+1] = board[i][j] * 2
-              setScore(score => score += board[i][j] *2)
               board[i][j] = ""
             }
             else{
@@ -302,11 +291,10 @@ export default function App() {
           }
         }
       }
-
+    calcScore()
     setBoard([...board, board])
 
   }
-
 
   const resetBoard = () => {
     setModalVisible(false)
@@ -464,7 +452,7 @@ export default function App() {
             </TouchableOpacity>
             <TouchableOpacity style={styles.score}>
               <Image source={require('./assets/coin.png')} style={{ width: "50%", height: "50%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
-              <Text style={{ alignSelf: 'center', fontSize: 30, color: 'white'}}>134,133</Text>
+              <Text style={{ alignSelf: 'center', fontSize: 30, color: 'white'}}>{score}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.lvl}>
               <Image source={require('./assets/crown.png')} style={{ width: "50%", height: "50%", alignSelf: 'center' }} resizeMode={'contain'}></Image>
