@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground ,Dimensions, Vibration, Alert, Modal } from 'react-native';
 import {Directions, FlingGestureHandler, State} from 'react-native-gesture-handler';
-import {chooseMonster, images} from './utils'
+import {chooseMonster, tileImages} from './utils'
 import Constants from 'expo-constants';
 
+// TODO: New orientation, movement allowed?, movement, level algo, async storage, themeColor switcher
 
 export default function App() {
   const startingBoard = [['','','',''],['','',2,''],['','',2,''],['','','','']]

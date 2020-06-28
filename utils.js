@@ -1,64 +1,64 @@
 export const chooseMonster = (x,y, board, theme) => {
     console.log(board[x][y])
     if(board[x][y] == ""){
-      return images[theme]['Transparent'].file
+      return tileImages[theme]['Transparent'].file
     }
     if(board[x][y] == 2){
-      return images[theme]['One'].file
+      return tileImages[theme]['One'].file
     }
     if(board[x][y] == 4){
-      return images[theme]['Two'].file
+      return tileImages[theme]['Two'].file
     }    
     if(board[x][y] == 8){
-      return images[theme]['Three'].file
+      return tileImages[theme]['Three'].file
     }
     if(board[x][y] == 16){
-      return images[theme]['Four'].file
+      return tileImages[theme]['Four'].file
     }
     if(board[x][y] == 32){
-      return images[theme]['Five'].file
+      return tileImages[theme]['Five'].file
     }
     if(board[x][y] == 64){
-      return images[theme]['Six'].file
+      return tileImages[theme]['Six'].file
     }
     if(board[x][y] == 128){
-      return images[theme]['Seven'].file
+      return tileImages[theme]['Seven'].file
     }
     if(board[x][y] == 256){
-      return images[theme]['Eight'].file
+      return tileImages[theme]['Eight'].file
     }
     if(board[x][y] == 512){
-      return images[theme]['Nine'].file
+      return tileImages[theme]['Nine'].file
     }
     if(board[x][y] == 1024){
-      return images[theme]['Ten'].file
+      return tileImages[theme]['Ten'].file
     }
     if(board[x][y] == 2048){
-      return images[theme]['Eleven'].file
+      return tileImages[theme]['Eleven'].file
     }
     if(board[x][y] == 4096){
-      return images[theme]['Twelve'].file
+      return tileImages[theme]['Twelve'].file
     }
     if(board[x][y] == 8192){
-      return images[theme]['Thirteen'].file
+      return tileImages[theme]['Thirteen'].file
     }
     if(board[x][y] == 16384){
-      return images[theme]['Fourteen'].file
+      return tileImages[theme]['Fourteen'].file
     }
     if(board[x][y] == 32768){
-      return images[theme]['Fifteen'].file
+      return tileImages[theme]['Fifteen'].file
     }
     if(board[x][y] == 65536){
-      return images[theme]['Sixteen'].file
+      return tileImages[theme]['Sixteen'].file
     }
     if(board[x][y] == 131072){
-      return images[theme]['Seventeen'].file
+      return tileImages[theme]['Seventeen'].file
     }
   }
 
 
 
-export const images = {
+export const tileImages = {
     monsters:{
       Transparent:{
         file: require('./assets/monsters/transparent.png')
