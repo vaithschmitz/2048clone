@@ -7,7 +7,7 @@ import sky from './assets/sky.jpg'
 
 
 export default function App() {
-  const startingBoard = [['','', '',''],['','',2,''],['','',2,''],['','','','']]
+  const startingBoard = [['','','',''],['','',2,''],['','',2,''],['','','','']]
   const [board, setBoard] = useState(startingBoard)
   const [score, setScore] = useState(0)
   const [theme, setTheme] = useState('numbers')
@@ -21,7 +21,8 @@ export default function App() {
       column = Math.floor(Math.random()*4)
       row = Math.floor(Math.random()*4)
     }
-    board[row][column] = 2
+    let addedNum = Math.floor(Math.random()*10) > 0 ? 2 : 4
+    board[row][column] = addedNum
     setBoard([...board, board])
     
   }
@@ -293,26 +294,26 @@ export default function App() {
           <View style={styles.gridContainer}>
             <View>      
               <View style={[styles.cell, styles.cell1]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,0, board, theme)}></Image></View>
-              <View style={[styles.cell, styles.cell2]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,1, board, theme)}></Image></View>
-              <View style={[styles.cell, styles.cell3]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,2, board, theme)}></Image></View>
-              <View style={[styles.cell, styles.cell4]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,3, board, theme)}></Image></View>
+              <View style={[styles.cell, styles.cell2]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(1,0, board, theme)}></Image></View>
+              <View style={[styles.cell, styles.cell3]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(2,0, board, theme)}></Image></View>
+              <View style={[styles.cell, styles.cell4]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(3,0, board, theme)}></Image></View>
             </View>
             <View>
-            <View style={[styles.cell, styles.cell5]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(1,0, board, theme)}></Image></View>
+              <View style={[styles.cell, styles.cell5]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,1, board, theme)}></Image></View>
               <View style={[styles.cell, styles.cell6]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(1,1, board, theme)}></Image></View>
-              <View style={[styles.cell, styles.cell7]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(1,2, board, theme)}></Image></View>
-              <View style={[styles.cell, styles.cell8]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(1,3, board, theme)}></Image></View>
+              <View style={[styles.cell, styles.cell7]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(2,1, board, theme)}></Image></View>
+              <View style={[styles.cell, styles.cell8]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(3,1, board, theme)}></Image></View>
             </View>
             <View>
-            <View style={[styles.cell, styles.cell9]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(2,0, board, theme)}></Image></View>
-              <View style={[styles.cell, styles.cell10]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(2,1, board, theme)}></Image></View>
+              <View style={[styles.cell, styles.cell9]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,2, board, theme)}></Image></View>
+              <View style={[styles.cell, styles.cell10]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(1,2, board, theme)}></Image></View>
               <View style={[styles.cell, styles.cell11]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(2,2, board, theme)}></Image></View>
-              <View style={[styles.cell, styles.cell12]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(2,3, board, theme)}></Image></View>
+              <View style={[styles.cell, styles.cell12]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(3,2, board, theme)}></Image></View>
             </View>
             <View>
-            <View style={[styles.cell, styles.cell13]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(3,0, board, theme)}></Image></View>
-              <View style={[styles.cell, styles.cell14]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(3,1, board, theme)}></Image></View>
-              <View style={[styles.cell, styles.cell15]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(3,2, board, theme)}></Image></View>
+              <View style={[styles.cell, styles.cell13]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(0,3, board, theme)}></Image></View>
+              <View style={[styles.cell, styles.cell14]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(1,3, board, theme)}></Image></View>
+              <View style={[styles.cell, styles.cell15]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(2,3, board, theme)}></Image></View>
               <View style={[styles.cell, styles.cell16]}><Image resizeMode={'contain'}  style={{ width: "100%", height: "100%" }} source={chooseMonster(3,3, board, theme)}></Image></View>
             </View>
           </View>
