@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground ,Dimen
 import {Directions, FlingGestureHandler, State} from 'react-native-gesture-handler';
 import {chooseMonster, images} from './utils'
 import Constants from 'expo-constants';
-import sky from './assets/sky.jpg'
 
 
 export default function App() {
@@ -193,8 +192,7 @@ export default function App() {
 
  
   return (
-    <View style={styles.screen}>
-    <ImageBackground source={sky} style={styles.bg}>
+    <View style={[styles.bg, {backgroundColor: themeColor}]}>
       <FlingGestureHandler       
         direction={Directions.RIGHT}
         onHandlerStateChange={({ nativeEvent }) => {
@@ -322,7 +320,7 @@ export default function App() {
       </FlingGestureHandler>
       </FlingGestureHandler>
       </FlingGestureHandler>
-    </ImageBackground>
+    {/* </ImageBackground> */}
     </View>
   );
 }
@@ -332,7 +330,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width, 
     height: Dimensions.get('screen').height, 
     resizeMode: 'contain',
-    flexDirection: 'column'
+    flexDirection: 'column', 
   },
   screen: {
     flex:1,
