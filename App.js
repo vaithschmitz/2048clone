@@ -7,7 +7,7 @@ import Constants from 'expo-constants';
 // TODO: New orientation, movement allowed?, movement, level algo, async storage, themeColor switcher, change headers to views instead of touchops
 
 export default function App() {
-  const startingBoard = [['','','',''],['','','',''],['','','',''],['','','','']]
+  const startingBoard = [['','','',''],['',2,2,''],['','','',''],['','','','']]
   const [board, setBoard] = useState(startingBoard)
   const [score, setScore] = useState(0)
   const [theme, setTheme] = useState('numbers')
@@ -34,35 +34,50 @@ export default function App() {
   }
 
   const checkBorders = () => {
-    if(board[0][0] && board[0][1] && board[0][1] && board[0][1] != ''){
+    if(board[0][0]!= '' && board[0][1]!= '' && board[0][1]!= '' && board[0][1] != ''){
       console.log('topFull')
       return 'topFull'
     }
-    if(board[0][0] && board[1][0] && board[2][0] && board[3][0] != ''){
+    if(board[0][0]!= '' && board[1][0]!= '' && board[2][0]!= '' && board[3][0] != ''){
       console.log('leftFull')
       return 'leftFull'
     }
-    if(board[3][0] && board[3][0] && board[3][0] && board[3][0] != ''){
+    if(board[3][0]!= '' && board[3][0] != '' && board[3][0] != '' && board[3][0] != ''){
       console.log('rightFull')
       return 'rightFull'
     }
-    if(board[3][0] && board[3][1] && board[3][2] && board[3][3] != ''){
+    if(board[3][0]!= '' && board[3][1]!= '' && board[3][2]!= '' && board[3][3] != ''){
       console.log('bottomFull')
       return 'bottomFull'
     }
     else{
+      console.log('nah')
+      
       return
     }
   }
 
-  // moveRight = () => {
-  //   let canMove = true
-  //   for(let i = 0; i<= 3; i++){
-  //     for(let j = 3; j <= 0; j--){
-  //       if
-  //     }
-  //   }
-  // }
+  moveRight = () => {
+    let canMove = true
+    // while(canMove){
+    for(let i = 0; i<= 3; i++){
+      for(let j = 3; j >= 0; j--){
+        // if previous space has same number, add
+        if(board[i][j] == board[i][j-1]){
+          board[i][j] *= 2
+          board[i][j-1] = ''
+        }
+        // if adjacent right is empty, move value there
+        if((board[i][j] == '') && (board[i][j-1] != '' )){
+          board[i][j] = board[i][j-1]
+          board[i][j-1] = '' 
+        }
+        console.log(board)
+      }
+    }
+    // }
+    setBoard(() => [...board, board])
+  }
 
   // const moveRight = () => {
   //   const scanMoves = () => {
@@ -231,7 +246,8 @@ export default function App() {
         direction={Directions.RIGHT}
         onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.ACTIVE) {
-          // moveRight()
+          console.log(board)
+          moveRight()
           // playTurn()
           checkBorders()
         }
