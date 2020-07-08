@@ -3,11 +3,12 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground ,Dimen
 import {Directions, FlingGestureHandler, State} from 'react-native-gesture-handler';
 import {chooseMonster, tileImages} from './utils'
 import Constants from 'expo-constants';
+import _ from 'lodash'
 
 // TODO: New orientation, movement allowed?, movement, level algo, async storage, themeColor switcher, change headers to views instead of touchops
 
 export default function App() {
-  const startingBoard = [['','','',''],['','','',''],['','','',''],['','','','']]
+  const startingBoard = [['','','',''],['',2,'',2],['','','',''],['','','','']]
   const [board, setBoard] = useState(startingBoard)
   const [score, setScore] = useState(0)
   const [theme, setTheme] = useState('numbers')
@@ -17,20 +18,20 @@ export default function App() {
   useEffect(()=> {playTurn(), playTurn()}, [])
 
   const playTurn = () => {
-    if(board.flat().filter(el => el == '').length == 0){
-      console.log('fullBoard')
+    let flatBoard = board.flat()
+    if(flatBoard.filter(el => el == '').length == 0){
+      return false
     }
     else{
-      let column =  Math.floor(Math.random()*4)
-      let row =  Math.floor(Math.random()*4)
-      while(board[row][column] !== ''){
-        column = Math.floor(Math.random()*4)
-        row = Math.floor(Math.random()*4)
-      }
+      let addIndex = Math.floor(Math.random() * 16)
       let addedNum = Math.floor(Math.random()*10) > 0 ? 2 : 4
-      board[row][column] = addedNum
-      setBoard([...board, board])
+      while(flatBoard[addIndex] != ''){
+        addIndex = Math.floor(Math.random() * 16)
+      }
+      flatBoard[addIndex] = addedNum
+      setBoard(_.chunk(flatBoard, 4))
     }
+
   }
 
   const calcScore = i => {
@@ -61,6 +62,7 @@ export default function App() {
     }
   }
 
+
   moveRight = () => {
     let canMove = true
     // while(canMove){
@@ -76,11 +78,13 @@ export default function App() {
           board[i][j] = board[i][j-1]
           board[i][j-1] = '' 
         }
-        console.log(board)
+        // console.log(board)
       }
     }
     // }
-    setBoard(() => [...board, board])
+    // setBoard(() => [...board, board])
+    setBoard([...board])
+    console.log('right')
   }
 
 
@@ -99,16 +103,16 @@ export default function App() {
         onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.ACTIVE) {
           moveRight()
+          playTurn()
         }
       }}>
       <FlingGestureHandler       
         direction={Directions.LEFT}
         onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.ACTIVE) {
-          playTurn()
 
           // moveLeft()
-          // playTurn()
+          playTurn()
         }
       }}>
       <FlingGestureHandler       
