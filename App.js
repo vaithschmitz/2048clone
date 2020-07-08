@@ -7,7 +7,7 @@ import Constants from 'expo-constants';
 // TODO: New orientation, movement allowed?, movement, level algo, async storage, themeColor switcher, change headers to views instead of touchops
 
 export default function App() {
-  const startingBoard = [['','','',''],['',2,2,''],['','','',''],['','','','']]
+  const startingBoard = [['','','',''],['','','',''],['','','',''],['','','','']]
   const [board, setBoard] = useState(startingBoard)
   const [score, setScore] = useState(0)
   const [theme, setTheme] = useState('numbers')
@@ -17,16 +17,20 @@ export default function App() {
   useEffect(()=> {playTurn(), playTurn()}, [])
 
   const playTurn = () => {
-    let column =  Math.floor(Math.random()*4)
-    let row =  Math.floor(Math.random()*4)
-    while(board[row][column] !== ''){
-      column = Math.floor(Math.random()*4)
-      row = Math.floor(Math.random()*4)
+    if(board.flat().filter(el => el == '').length == 0){
+      console.log('fullBoard')
     }
-    let addedNum = Math.floor(Math.random()*10) > 0 ? 2 : 4
-    board[row][column] = addedNum
-    setBoard([...board, board])
-    
+    else{
+      let column =  Math.floor(Math.random()*4)
+      let row =  Math.floor(Math.random()*4)
+      while(board[row][column] !== ''){
+        column = Math.floor(Math.random()*4)
+        row = Math.floor(Math.random()*4)
+      }
+      let addedNum = Math.floor(Math.random()*10) > 0 ? 2 : 4
+      board[row][column] = addedNum
+      setBoard([...board, board])
+    }
   }
 
   const calcScore = i => {
@@ -79,158 +83,6 @@ export default function App() {
     setBoard(() => [...board, board])
   }
 
-  // const moveRight = () => {
-  //   const scanMoves = () => {
-  //     for(let i = 0; i<= 3; i++){
-  //       for(let j = 0; j <= 3; j++){
-  //         // if not empty move if possible
-  //         if((board[i][j] !== "") && (i !== 3)){
-  //           // if nearest space is not empty or same number, stop
-  //           if(board[i+1][j]  !== "" && board[i+1][j] !== board[i][j]){
-  //             ''
-  //           }
-  //           // if same number, double
-  //           else if(board[i+1][j] == board[i][j]){
-  //             board[i+1][j] = board[i][j] * 2
-  //             calcScore((board[i][j] * 2))
-  //             board[i][j] = ""
-  //           }
-  //           else{
-  //             board[i+1][j] = board[i][j]
-  //             board[i][j] = ""
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   for(let i = 0; i<= 3; i++){
-  //     for(let j = 0; j <= 3; j++){
-  //       // if not empty move if possible
-  //       if((board[i][j] !== "") && (i !== 3)){
-  //         ''
-  //       }
-  //       // if any other available moves, recurse
-  //       else{
-  //         scanMoves()
-  //       }
-  //     }
-  //   }
-  //   setBoard([...board, board])
-
-  // }
-
-  // const moveLeft = () => {
-  //   const scanMoves = () => {
-  //     for(let i = 3; i>= 0; i--){
-  //       for(let j = 0; j <= 3; j++){
-  //         // if not empty move if possible
-  //         if((board[i][j] !== "") && (i !== 0)){
-  //           // if nearest space is not empty or same number, stop
-  //           if((board[i-1][j]  !== "") && (board[i-1][j] !== board[i][j])){
-  //             ''
-  //           }
-  //           // if same number, double
-  //           else if(board[i-1][j] == board[i][j]){
-  //             board[i-1][j] = board[i][j] * 2
-  //             calcScore((board[i][j] * 2))
-  //             board[i][j] = ""
-  //           }
-  //           else{
-  //             board[i-1][j] = board[i][j]
-  //             board[i][j] = ""
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  //   // if any other available moves, recurse
-  //   for(let i = 3; i>= 0; i--){
-  //     for(let j = 0; j <= 3; j++){
-  //       if((board[i][j] !== "") && (i !== 0)){
-  //       }
-  //         else{
-  //           scanMoves()
-  //         }
-  //       }
-  //     }
-  //   setBoard([...board, board])
-
-  // }
-  // const moveUp = () => {
-  //   const scanMoves = () => {
-  //     for(let i = 0; i<= 3; i++){
-  //       for(let j = 3; j >= 0; j--){
-  //         // if not empty move if possible
-  //         if((board[i][j] !== "") && (j !== 0)){
-  //           // if nearest space is not empty or same number, stop
-  //           if((board[i][j-1]  !== "") && (board[i][j-1] !== board[i][j])){
-  //             ''
-  //           }
-  //           // if same number, double
-  //           else if(board[i][j-1] == board[i][j]){
-  //             board[i][j-1] = board[i][j] * 2
-  //             calcScore((board[i][j] * 2))
-  //             board[i][j] = ""
-  //           }
-  //           else{
-  //             board[i][j-1] = board[i][j]
-  //             board[i][j] = ""
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  //   // if any other available moves, recurse
-  //   for(let i = 0; i<= 3; i++){
-  //     for(let j = 3; j >= 0; j--){
-  //       if((board[i][j] !== "") && (j !== 0)){
-  //       }
-  //         else{
-  //           scanMoves()
-  //         }
-  //       }
-  //     }
-  //   setBoard([...board, board])
-
-  // }
-  // const moveDown = () => {
-  //   const scanMoves = () => {
-  //     for(let i = 0; i<= 3; i++){
-  //       for(let j = 0; j <= 3; j++){
-  //         // if not empty move if possible
-  //         if((board[i][j] !== "") && (j !== 3)){
-  //           // if nearest space is not empty or same number, stop
-  //           if((board[i][j+1]  !== "") && (board[i][j+1] !== board[i][j])){
-  //             ''
-  //           }
-  //           // if same number, double
-  //           else if(board[i][j+1] == board[i][j]){
-  //             board[i][j+1] = board[i][j] * 2
-  //             calcScore((board[i][j] * 2))
-  //             board[i][j] = ""
-  //           }
-  //           else{
-  //             board[i][j+1] = board[i][j]
-  //             board[i][j] = ""
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  //   // if any other available moves, recurse
-  //   for(let i = 0; i<= 3; i++){
-  //     for(let j = 0; j <= 3; j++){
-  //       if((board[i][j] !== "") && (j !== 3)){
-  //       }
-  //         else{
-  //           scanMoves()
-  //         }
-  //       }
-  //     }
-  //   setBoard([...board, board])
-
-  // }
 
   const resetBoard = () => {
     setModalVisible(false)
@@ -246,18 +98,17 @@ export default function App() {
         direction={Directions.RIGHT}
         onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.ACTIVE) {
-          console.log(board)
           moveRight()
-          // playTurn()
-          checkBorders()
         }
       }}>
       <FlingGestureHandler       
         direction={Directions.LEFT}
         onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.ACTIVE) {
-          moveLeft()
           playTurn()
+
+          // moveLeft()
+          // playTurn()
         }
       }}>
       <FlingGestureHandler       
