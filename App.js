@@ -19,7 +19,7 @@ export default function App() {
 
   const playTurn = () => {
     let flatBoard = board.flat()
-    if(flatBoard.filter(el => el == '').length == 0){
+    if(flatBoard.find(el => el == '') == undefined){
       return false
     }
     else{
